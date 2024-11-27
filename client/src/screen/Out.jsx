@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../layout/Layout";
 import { MdDelete } from "react-icons/md";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 const Out = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -291,9 +292,48 @@ const Out = () => {
                         </li>
                       </ul>
                     </div>
-                    <button type="submit" className="site-btn">
+                    <button
+                      type="submit"
+                      className="site-btn"
+                      style={{ marginBottom: "15px", borderRadius: "5px" }}
+                    >
                       Place order
                     </button>
+                    {/* PayPal button */}
+                    <PayPalScriptProvider
+                      options={{
+                        "client-id":
+                          "ATS18TUzNjw18QgKBX5-QSmzzTt1nkFJKxO5h46YHTy3imHPBTFoVfTV5nsJ-Q19R_8x-0dqXENRXuc1", // Replace with your client ID
+                        currency: "USD", // Optional: set your currency
+                      }}
+                    >
+                      <PayPalButtons
+                        style={{ layout: "vertical" }} // Optional: button style
+                        createOrder={(data, actions) => {
+                          return actions.order.create({
+                            purchase_units: [
+                              {
+                                amount: {
+                                  value: total.toFixed(2),
+                                },
+                              },
+                            ],
+                          });
+                        }}
+                        onApprove={(data, actions) => {
+                          return actions.order.capture().then(() => {
+                            alert("Payment successful!");
+                            setIsSubmitted(true);
+                          });
+                        }}
+                        onError={(err) => {
+                          console.error("PayPal Button Error", err);
+                          alert(
+                            "There was an issue with your payment. Please try again."
+                          );
+                        }}
+                      />
+                    </PayPalScriptProvider>
                   </div>
                 </div>
               </div>
