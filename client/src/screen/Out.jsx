@@ -303,7 +303,7 @@ const Out = () => {
                     <PayPalScriptProvider
                       options={{
                         "client-id":
-                          "ATS18TUzNjw18QgKBX5-QSmzzTt1nkFJKxO5h46YHTy3imHPBTFoVfTV5nsJ-Q19R_8x-0dqXENRXuc1", // Replace with your client ID
+                          "Ad40nzNpTF-mpY2PSGSI1ZPZgPHje_TQtxfYy2CN1lvqHUi2cXVr-VJwpgN9tbfXFfXF2AID8GVm13hL", // Replace with your client ID
                         currency: "USD", // Optional: set your currency
                       }}
                     >
